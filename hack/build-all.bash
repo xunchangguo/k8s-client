@@ -47,7 +47,7 @@ for OS in ${DEP_BUILD_PLATFORMS[@]}; do
 
     echo "Building for ${OS}/${ARCH} with CGO_ENABLED=${CGO_ENABLED}"
     GOARCH=${ARCH} GOOS=${OS} CGO_ENABLED=${CGO_ENABLED} ${GO_BUILD_CMD} -ldflags "${GO_BUILD_LDFLAGS}"\
-     -o "${DEP_ROOT}/release/${NAME}" .
+     -o "${DEP_ROOT}/release/${NAME}" ./cmd/cli
     shasum -a 256 "${DEP_ROOT}/release/${NAME}" > "${DEP_ROOT}/release/${NAME}".sha256
   done
 done
