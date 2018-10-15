@@ -9,10 +9,9 @@ jobs:
       go_import_path: github.com/xunchangguo/k8s-client
       install: skip
       script: skip 
-	  before_install:                                                                 
-        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
-        - dep ensure
       before_deploy:
+        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        - dep ensure
         - chmod +x ./hack/build-all.bash
         - ./hack/build-all.bash
       deploy:
