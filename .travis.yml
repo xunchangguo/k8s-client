@@ -6,7 +6,7 @@ jobs:
   include:
     - go: 1.10.x
       stage: deploy
-      go_import_path: github.com/xunchangguo/k8s-client
+      go_import_path: github.com/xunchangguo/k8s-client/cmd/cli
       install: skip
       script: skip 
       before_deploy:
