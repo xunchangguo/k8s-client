@@ -11,7 +11,7 @@ jobs:
       script: skip 
       before_deploy:
         - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        - dep ensure
+        - dep ensure -v
         - chmod +x ./hack/build-all.bash
         - ./hack/build-all.bash
       deploy:
