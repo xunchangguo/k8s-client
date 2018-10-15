@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: appcli
+  labels:
+    name: appcli
+spec:
+  template:
+    metadata:
+      labels:
+        name: appcli
+    spec:
+      nodeName: 172-17-81-56.node
+      containers:
+      - name: appcli
+        image: appcli:1.0.0
+        imagePullPolicy: IfNotPresent
+        command: [ "cli", "-namespace", "admin", "-apps", "logget-test" ]
+      serviceAccount: tiller
+      restartPolicy: OnFailure

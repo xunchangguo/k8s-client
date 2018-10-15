@@ -1,0 +1,37 @@
+language: go
+sudo: false
+notifications:
+  email: false
+jobs:
+  include:
+    - go: 1.10.x
+      stage: deploy
+      go_import_path: github.com/xunchangguo/k8s-client
+      install: skip
+      script: skip 
+	  before_install:                                                                 
+        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
+        - dep ensure
+      before_deploy:
+        - chmod +x ./hack/build-all.bash
+        - ./hack/build-all.bash
+      deploy:
+        - provider: releases
+          api_key:
+            secure: "DAwJNazefrsHVTCxBKZl/a5mzDTKfRzl01GaMZv/GJgWBTAvd/Rsiw0qmQ6FNH72o1q2DX+r7wZEjW7c1+5mm0p6mv3vh71thzNM4OSegEfdVaXJdeNCI8/zjxJv34Xwd32ShqcPRJlqsP9TUA2UxXjQad2UN5ktkSkzSwg1uCCZyFf6ThzmEUWErcehb47Scejv8g8OiG5U4hSJdlX1jULj4behVfvjEmngDipXBp04CHP3/sgkdR3Y/6Ueg5mxVqEUfkV49U/kLYz4t3i8RfYTe8Vc/QuTCAg5z5T28D/ab0NnOnmlxS1GEDxjAyyxshiYRF2XD5UEspQC/+dn39HzhZe96wptDnkbkNXYzRzklujQ758QQYBQdOhz7NbjPo1pXtCHYv05aRXSB23ZYG1CPq7cbPXtlYj6RFAdg7fsphx74ZLPnhFoSTrYhUM4xKzLVt4txhhEEg/e9sV+2kwv4R77hoNzbSf1g52Cke6FM3wQQBdI/tnc9YmhLcN/VP8B4W6iPBP6GOBta7sihXIaHd57nj30/v9hB+wNIWzZUKMJd5OJZUYkZ1w3nip8WUOCl3Ceal9H0xtXMQ0Dc6wgMctvH4hwGIS4zxJ1mz8gB7iPSCLfeD56ekArNd4ryYbUj+BrAjJYVV28YPrxJPF6uZxkzw6sFY/g16ZYGT4="
+          file:
+            - release/cli-linux-amd64
+            - release/cli-linux-amd64.sha256
+            - release/cli-windows-amd64.exe
+            - release/cli-windows-amd64.exe.sha256
+            - release/cli-linux-386
+            - release/cli-linux-386.sha256
+            - release/cli-windows-386.exe
+            - release/cli-windows-386.exe.sha256
+          skip_cleanup: true
+          on:
+            repo: xunchangguo/k8s-client
+            branch: master
+            tags: true
+addons:
+  ssh_known_hosts: github.com
